@@ -4,21 +4,21 @@ let elDelBtn = document.querySelectorAll("#DeleteBtn");
 
 
 let todosArr =[
-    {
-        id: 1,
-        todo: "O'chrib tashlash",
-        isComplate: true,
-    },
-    {
-        id: 2,
-        todo: "O'chrib tashlash",
-        isComplate: false,
-    },
-    {
-        id: 3,
-        todo: "O'chrib tashlash",
-        isComplate: false,
-    }
+    // {
+    //     id: 1,
+    //     todo: "O'chrib tashlash",
+    //     isComplate: true,
+    // },
+    // {
+    //     id: 2,
+    //     todo: "O'chrib tashlash",
+    //     isComplate: false,
+    // },
+    // {
+    //     id: 3,
+    //     todo: "O'chrib tashlash",
+    //     isComplate: false,
+    // }
     
 ]
 
