@@ -3,25 +3,7 @@ let elForm = document.querySelector("#form");
 let elDelBtn = document.querySelectorAll("#DeleteBtn");
 
 
-let todosArr =[
-    // {
-    //     id: 1,
-    //     todo: "O'chrib tashlash",
-    //     isComplate: true,
-    // },
-    // {
-    //     id: 2,
-    //     todo: "O'chrib tashlash",
-    //     isComplate: false,
-    // },
-    // {
-    //     id: 3,
-    //     todo: "O'chrib tashlash",
-    //     isComplate: false,
-    // }
-    
-]
-
+let todosArr = getLocalStoreg() || [];
 elForm.addEventListener("submit", evt => {
     evt.preventDefault()
     let {todo} = evt.target.elements
@@ -31,10 +13,10 @@ elForm.addEventListener("submit", evt => {
         isComplate: false,
     };
     
-    todosArr.push(newObject);
+    todosArr.unshift(newObject);
+    saveLocalStoreg(todosArr);  
     renderingFunc(todosArr,elList);
     todo.value = null;
-    
     
 })
 
@@ -47,8 +29,7 @@ function renderingFunc(array, element){
         let newDel=document.createElement("Delete");
         
         if(array[i].isComplate){
-            newChecbox.setAttribute("checked" , "true")
-            
+            newChecbox.setAttribute("checked" ,"true")
         }
         
         newLi.setAttribute("class", "d-flex justify-content-between  border gap-3","style","width: 330px;" );
@@ -63,14 +44,16 @@ function renderingFunc(array, element){
             let btnId = evt.target.dataset.todoId;
             let foundIndex = todosArr.findIndex((item) => item.id == btnId);
             todosArr.splice(foundIndex, 1);
+            saveLocalStoreg(todosArr);
             renderingFunc(todosArr, elList);
         })
-
-
+        
+        
         newChecbox.addEventListener('click',evt =>{
             let btnId = evt.target.dataset.todoId;
             let foundIndex = todosArr.findIndex((item) => item.id == btnId);
             foundTodo.isComplate = !foundTodo.isComplate;
+            saveLocalStoreg(todosArr);
             renderingFunc(todosArr, elList);
         })
 
@@ -82,4 +65,14 @@ function renderingFunc(array, element){
         newLi.append(newDel);
         element.append(newLi);
     }
+}
+
+renderingFunc(todosArr, elList);
+
+function saveLocalStoreg(value){
+    window.localStorage.setItem("todos", JSON.stringify(value));
+}
+
+function getLocalStoreg(){
+   return JSON.parse(window.localStorage.getItem("todos"));
 }
